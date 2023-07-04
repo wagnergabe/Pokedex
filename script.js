@@ -23,7 +23,7 @@ const colors = {
     };
 
     const fetchPokemons = async() => {
-        for(let i = 1; i <=pokemon_count; i++) {
+        for(let i = 1; i <= pokemon_count; i++) {
             await getPokemon(i);
         }
     }
@@ -32,7 +32,29 @@ const colors = {
         const url = `https://pokeapi.co/api/v2/pokemon/${id}`
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data)
-    }
+        createPokemonCard(data);
+    }   
+        createPokemonCard = (pokemon) => {
+            const pokemonEl = document.createElement('div');
+            pokemonEl.classList.add('pokemon');
+
+            const pokemonInnerHTML = `    
+            <div class="pokemon" style="background-color: rgb(222, 253, 224)">
+            <div class="img-container">
+              <img src="https://archives.bulbagarden.net/media/upload/thumb/f/fb/0001Bulbasaur.png/600px-0001Bulbasaur.png" />
+            </div>
+            <div class="info">
+              <span class="number">#001</span>
+              <h3 class="name">Bulbasaur</h3>
+              <small class="type">Type: <span>grass</span></small>
+            </div>
+          </div>
+        `
+
+        pokemonEl.innerHTML = pokemonInnerHTML;
+
+        poke_container.appendChild(pokemonEl)
+        }
+    
 
     fetchPokemons();
