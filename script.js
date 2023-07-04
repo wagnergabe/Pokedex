@@ -22,6 +22,9 @@ const colors = {
         //https://stackoverflow.com/questions/70786719/cycling-through-an-array-and-finding-the-key-that-a-pokemon-type
     };
 
+    const main_types = Object.keys(colors)
+  
+
     const fetchPokemons = async() => {
         for(let i = 1; i <= pokemon_count; i++) {
             await getPokemon(i);
@@ -48,20 +51,25 @@ const colors = {
             };
 
             const poke_types = pokemon.types.map(type => type.type.name)
-            console.log(poke_types)
+            const type = main_types.find(type => poke_types.indexOf(type) > -1)
+       
+
 
             const pokemonEl = document.createElement('div');
             pokemonEl.classList.add('pokemon');
+            const color = colors[type];
 
+            pokemonEl.style.backgroundColor = color
+           
             const pokemonInnerHTML = `    
-            <div class="pokemon" style="background-color: rgb(222, 253, 224)">
+        
             <div class="img-container">
               <img src="${pokemon.sprites.front_default}" />
             </div>
             <div class="info">
               <span class="number">#${id}</span>
               <h3 class="name">${name}</h3>
-              <small class="type">Type: <span>grass</span></small>
+              <small class="type">Type: <span>${type}</span></small>
             </div>
           </div>
         `
